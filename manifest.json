@@ -3,16 +3,18 @@
   "name": "Twitch Auto Clips",
   "version": "0.1.0",
   "background": {
-    "scripts":["background.js"]
+    "scripts":["js/jquery-3.6.0.min.js","js/notify.min.js","background.js"]
   },
   "content_scripts": [
     {
       "matches": ["https://*.twitch.tv/*"],
-      "js": ["script.js"],
+      "js": ["js/jquery-3.6.0.min.js","js/notify.min.js","script.js"],
       "css": ["styles.css"]
     }
   ],
   "permissions": [
+
     "tabs"
+    
   ]
 }

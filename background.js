@@ -3,10 +3,13 @@ chrome.tabs.onUpdated.addListener(
       // read changeInfo data and do something with it
       // like send the new url to contentscripts.js
       if (changeInfo.url) {
+
         chrome.tabs.sendMessage( tabId, {
-          message: 'hello!',
+          message: 'newURL',
           url: changeInfo.url
         })
       }
     }
   );
+
+  

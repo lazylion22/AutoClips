@@ -23,8 +23,11 @@ function check_url(url){
       videoelement.addEventListener('ended', (event) => {
           //console.log('ended')
           if(window.location.href.includes('/clip/')){
-            started = 0
             $.notify("video ended ", "info");
+
+            autoclipskip()
+            started = 0
+            
             
         
           }
@@ -41,6 +44,12 @@ function check_url(url){
       }
 
     } 
+    else{
+      if (findvideo() == videoelement){
+        $.notify("same video elemnt ", "info");
+        
+      }
+    }
 
   }
   else{
@@ -52,6 +61,75 @@ function check_url(url){
   }
 }
 function autoclipskip(vid){
+  if(started ==1){
+    
+    //$.notify('auto', "info");
+    $.notify("autoclipskip started =1", "info");
+    // https://regex101.com/r/F22kJB/1
+    var clip_id = window.location.href.match(/(?<=\/clip\/)(.*?)(?=-|\?)/g)
+    if (clip_id){
+      $.notify(`clip_id=${clip_id}`, "info");
+      var allCards = document.querySelectorAll('[data-a-target^="clips-card"]')
+      for (var i=0;i<allCards.length;i++){
+            var ref = $(allCards[i]).find('div a:first')[0].href
+            if (ref){
+              //$.notify(`ref=${ref}`, "info");
+              if(ref.includes(clip_id)){
+                if (i+1 == allCards.length){
+                  allCards[i].scrollIntoView();
+                  setTimeout(() => {
+                    var newcards = document.querySelectorAll('[data-a-target^="clips-card"]')
+                    if (newcards.length > allCards.length){
+                       $.notify(`Loaded new cards, newcards.length=${newcards.length}`, "info");
+                       for (var i=0;i<newcards.length;i++){
+                        var ref2 = $(allCards[i]).find('div a:first')[0].href
+                        if (ref2){
+                          if(ref2.includes(clip_id)){
+                            $(newcards[i+1]).find('div a:first')[0].click()
+                            started = 0
+                          }
+                        }
+                       }
+
+                    }
+                    else{
+                      $.notify(`Can't load new clips`, "error");
+                      return
+
+                    }
+
+
+                  }, 1000);
+                  break;
+                }
+                else{
+                  $.notify(`Clicing next card`, "info");
+                  
+                  setTimeout(() => {
+                    $(allCards[i+1]).find('div a:first')[0].click()
+                  }, 1000);
+                  started = 0
+                  break;
+                }
+              }
+
+            }
+            else{
+              $.notify(`Cant find ref`, "error");
+              return
+            }
+
+        }
+      }
+      else{
+        $.notify("Cant find clip id in URL", "error");
+  
+      }
+    }
+    else{
+      $.notify("autoclipskip started =0", "info");
+
+    }
   
 }
 // checks every url change

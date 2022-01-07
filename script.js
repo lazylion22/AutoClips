@@ -77,31 +77,31 @@ function autoclipskip(vid){
               if(ref.includes(clip_id)){
                 if (i+1 == allCards.length){
                   allCards[i].scrollIntoView();
-                  setTimeout(() => {
+                
+                  var count = 0
+                  // trying to load new cards for 2 sec (20time*10ms)
+                  var myInterval = setInterval( function(){    
                     var newcards = document.querySelectorAll('[data-a-target^="clips-card"]')
-                    if (newcards.length > allCards.length){
-                       $.notify(`Loaded new cards, newcards.length=${newcards.length}`, "info");
-                       for (var i=0;i<newcards.length;i++){
-                        var ref2 = $(allCards[i]).find('div a:first')[0].href
-                        if (ref2){
-                          if(ref2.includes(clip_id)){
-                            $(newcards[i+1]).find('div a:first')[0].click()
-                            started = 0
-                          }
-                        }
-                       }
+                    if (newcards.length > allCards.length ){
+                      $.notify(`Loaded new cards, newcards.length=${newcards.length}`, "info");
+                      $(newcards[i+1]).find('div a:first')[0].click()
+                      started = 0
+                      
+                      clearInterval(myInterval);
 
                     }
-                    else{
-                      $.notify(`Can't load new clips`, "error");
-                      return
+                    if (count >= 20){
+                      allCards[0].scrollIntoView();
 
+                      $.notify(`Cant load new clips`, "error");
+                      // $.notify(`count = ${count} load new clips`, "error");  
+                      clearInterval(myInterval);
                     }
-
-
-                  }, 1000);
+                    count++
+                  }, 100);                    
                   break;
                 }
+            
                 else{
                   $.notify(`Clicing next card`, "info");
                   

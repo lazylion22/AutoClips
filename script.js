@@ -6,7 +6,7 @@ var started = 0
 
 function check_url(url){
   if (url.includes('/clip/')){
-    $.notify("clip ", "success");
+    // $.notify("clip ", "success");
     
     console.log('clip',url) 
     clip = 1
@@ -18,12 +18,12 @@ function check_url(url){
         return
       }
       else{
-        $.notify("found video element ", "success");
+        // $.notify("found video element ", "success");
 
       videoelement.addEventListener('ended', (event) => {
           //console.log('ended')
           if(window.location.href.includes('/clip/')){
-            $.notify("video ended ", "info");
+            // $.notify("video ended ", "info");
 
             autoclipskip()
             started = 0
@@ -35,7 +35,7 @@ function check_url(url){
       })
       videoelement.addEventListener('play', (event) => {
           //console.log('started')
-          $.notify("video = play ", "info");
+          // $.notify("video = play ", "info");
 
           started = 1
 
@@ -46,7 +46,7 @@ function check_url(url){
     } 
     else{
       if (findvideo() == videoelement){
-        $.notify("same video elemnt ", "info");
+        // $.notify("same video elemnt ", "info");
         
       }
     }
@@ -64,16 +64,16 @@ function autoclipskip(vid){
   if(started ==1){
     
     //$.notify('auto', "info");
-    $.notify("autoclipskip started =1", "info");
+    // $.notify("autoclipskip started =1", "info");
     // https://regex101.com/r/F22kJB/1
     var clip_id = window.location.href.match(/(?<=\/clip\/)(.*?)(?=-|\?)/g)
     if (clip_id){
-      $.notify(`clip_id=${clip_id}`, "info");
+      // $.notify(`clip_id=${clip_id}`, "info");
       var allCards = document.querySelectorAll('[data-a-target^="clips-card"]')
       for (var i=0;i<allCards.length;i++){
             var ref = $(allCards[i]).find('div a:first')[0].href
             if (ref){
-              //$.notify(`ref=${ref}`, "info");
+              // $.notify(`ref=${ref}`, "info");
               if(ref.includes(clip_id)){
                 if (i+1 == allCards.length){
                   allCards[i].scrollIntoView();
@@ -83,7 +83,7 @@ function autoclipskip(vid){
                   var myInterval = setInterval( function(){    
                     var newcards = document.querySelectorAll('[data-a-target^="clips-card"]')
                     if (newcards.length > allCards.length ){
-                      $.notify(`Loaded new cards, newcards.length=${newcards.length}`, "info");
+                      // $.notify(`Loaded new cards, newcards.length=${newcards.length}`, "info");
                       $(newcards[i+1]).find('div a:first')[0].click()
                       started = 0
                       
@@ -103,7 +103,7 @@ function autoclipskip(vid){
                 }
             
                 else{
-                  $.notify(`Clicing next card`, "info");
+                  // $.notify(`Clicing next card`, "info");
                   
                   setTimeout(() => {
                     $(allCards[i+1]).find('div a:first')[0].click()
@@ -120,17 +120,12 @@ function autoclipskip(vid){
             }
 
         }
-      }
-      else{
-        $.notify("Cant find clip id in URL", "error");
-  
-      }
     }
     else{
-      $.notify("autoclipskip started =0", "info");
-
-    }
+        $.notify("Cant find clip id in URL", "error");
   
+    }
+  }  
 }
 // checks every url change
 browser.runtime.onMessage.addListener(
@@ -138,7 +133,7 @@ browser.runtime.onMessage.addListener(
     // listen for messages sent from background.js
     if (request.message === 'newURL') {
       //console.log('ASDFASDFASDF',request.url) // new url is now in content scripts!
-      $.notify("New URL", "info");
+      // $.notify("New URL", "info");
 
       started = 0 
       check_url(request.url)

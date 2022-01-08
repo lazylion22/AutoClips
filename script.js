@@ -1,11 +1,36 @@
 var clip = 0
 var videoelement = 0
 var started = 0
+var iconState2 = 1
 
-// $.notify("Access granted", "success");
+
+browser.storage.local.get("state").then(ok2,notok2)
+function ok(item){
+  //console.log(item.state.isOn)
+
+  //iconState2 = item.state.isOn
+
+}
+function ok2(item){
+    //console.log(item.state.isOn)
+
+    iconState2 = item.state.isOn
+    $.notify(`ok2 iconState2 = ${iconState2}`, "info");
+    
+
+}
+function notok(){
+  console.log('local.set ERROR')
+}
+
+function notok2(){
+  console.log('local.get ERROR')
+}
+
+
 
 function check_url(url){
-  if (url.includes('/clip/')){
+  if (url.includes('/clip/') ){
     // $.notify("clip ", "success");
     
     //console.log('clip',url) 
@@ -55,13 +80,14 @@ function check_url(url){
   else{
     //$.notify("Not clip", "warn");
     //console.log('not clip',url) 
-    clip =0
-    videoelement = 0
+    // clip =0
+    // videoelement = 0
 
   }
 }
 function autoclipskip(vid){
-  if(started ==1){
+  
+  if(started ==1 && iconState2){
     
     //$.notify('auto', "info");
     // $.notify("autoclipskip started =1", "info");
@@ -139,7 +165,19 @@ browser.runtime.onMessage.addListener(
       check_url(request.url)
 
 
+    }    
+    else if(request.message === 'iconState'){
+      iconState2 = request.state
+      // console.log('xdasdf')
+      if(iconState2) 
+        $.notify(`AutoClips On`, "info");
+      else 
+        $.notify(`AutoClips Off`, "info");
+
+
     }
+    // $.notify(`state is ${request.message} =  ${request.state}`, "info");
+
 });
 check_url(window.location.href)
 function findvideo(){

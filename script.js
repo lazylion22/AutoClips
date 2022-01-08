@@ -14,7 +14,7 @@ function check_url(url){
       videoelement = findvideo()
       //console.log(videoPlayer)
       if (videoelement == -1){
-        $.notify("Cant find video element", "error");
+        $.notify("AutoClips: Cant find video element", "error");
         return
       }
       else{
@@ -93,7 +93,7 @@ function autoclipskip(vid){
                     if (count >= 20){
                       allCards[0].scrollIntoView();
 
-                      $.notify(`Cant load new clips`, "error");
+                      $.notify(`AutoClips: Cant load new clips`, "error");
                       // $.notify(`count = ${count} load new clips`, "error");  
                       clearInterval(myInterval);
                     }
@@ -115,14 +115,14 @@ function autoclipskip(vid){
 
             }
             else{
-              $.notify(`Cant find ref`, "error");
+              $.notify(`AutoClips: Cant find ref`, "error");
               return
             }
 
         }
     }
     else{
-        $.notify("Cant find clip id in URL", "error");
+        $.notify("AutoClips: Cant find clip id in URL", "error");
   
     }
   }  

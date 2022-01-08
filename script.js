@@ -133,7 +133,7 @@ function autoclipskip(vid){
   
 }
 // checks every url change
-chrome.runtime.onMessage.addListener(
+browser.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     // listen for messages sent from background.js
     if (request.message === 'newURL') {

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "AutoClips",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "background": {
     "scripts":["js/jquery-3.6.0.min.js","js/notify.min.js","background.js"]
   },
@@ -11,6 +11,11 @@
 
     }
   },
+  "icons": {
+
+    "96": "mainIcon.png"
+  },
+
   "content_scripts": [
     {
       "matches": ["https://*.twitch.tv/*"],

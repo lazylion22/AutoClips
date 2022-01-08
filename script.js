@@ -8,7 +8,7 @@ function check_url(url){
   if (url.includes('/clip/')){
     // $.notify("clip ", "success");
     
-    console.log('clip',url) 
+    //console.log('clip',url) 
     clip = 1
     if (videoelement==0){
       videoelement = findvideo()
@@ -53,8 +53,8 @@ function check_url(url){
 
   }
   else{
-    $.notify("Not clip", "warn");
-    console.log('not clip',url) 
+    //$.notify("Not clip", "warn");
+    //console.log('not clip',url) 
     clip =0
     videoelement = 0
 

@@ -15,7 +15,7 @@ function ok2(item){
     //console.log(item.state.isOn)
 
     iconState2 = item.state.isOn
-    $.notify(`ok2 iconState2 = ${iconState2}`, "info");
+    //$.notify(`ok2 iconState2 = ${iconState2}`, "info");
     
 
 }

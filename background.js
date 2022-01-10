@@ -8,11 +8,11 @@ function ok2(item){
 
   iconState = item.state.isOn
   if(iconState){
-    browser.browserAction.setIcon({path: "iconOn.png"});
+    browser.browserAction.setIcon({path: "icons/iconOn.png"});
 
   }
   else{
-    browser.browserAction.setIcon({path: "iconOff.png"});
+    browser.browserAction.setIcon({path: "icons/iconOff.png"});
 
   }
 
@@ -59,7 +59,7 @@ function iconClick() {
         isOn: 1
       }
     }).then(ok, onError );
-    browser.browserAction.setIcon({path: "iconOn.png"});
+    browser.browserAction.setIcon({path: "icons/iconOn.png"});
 
   }
   else{
@@ -68,7 +68,7 @@ function iconClick() {
         isOn: 0
       }
     }).then(ok, onError );
-    browser.browserAction.setIcon({path: "iconOff.png"});
+    browser.browserAction.setIcon({path: "icons/iconOff.png"});
 
   }
 
